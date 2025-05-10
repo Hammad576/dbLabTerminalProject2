@@ -60,17 +60,50 @@ RANGES = {
     'age_band_0_35': (0, 1),
     'disability_y': (0, 1)
 }
-
+#*  data: [
+                     #   data.gender_counts.female_pass,
+                    #    data.gender_counts.female_fail,
+                   #     data.gender_counts.female_distinction,
+                  #      data.gender_counts.female_withdrawn
+                 #   ],
+                #    backgroundColor: '#ff6384'
+               # }, {
+                   # label: 'Male',
+                   # data: [
+                        #data.gender_counts.male_pass,
+                       # data.gender_counts.male_fail,
+                      #  data.gender_counts.male_distinction,
+                     #   data.gender_counts.male_withdrawn
 # Load dataset for graphs
 def load_dataset():
     try:
         df = pd.read_csv('data/reduced_dataset.csv')
-        feature_means = df[['num_of_prev_attempts', 'studied_credits', 'forumng', 'oucontent', 'quiz', 'resource']].mean().to_dict()
+        
+        # Calculate feature means
+        feature_means = df[['num_of_prev_attempts', 'studied_credits', 'forumng', 
+                           'oucontent', 'quiz', 'resource']].mean().to_dict()
+        
+        # Calculate outcome distribution
         outcome_counts = df['final_result'].value_counts().to_dict()
+        
+        # Calculate gender-based outcomes
+        gender_counts = {
+            'female_pass': len(df[(df['gender_F'] == 1) & (df['final_result'] == 'Pass')]),
+            'female_fail': len(df[(df['gender_F'] == 1) & (df['final_result'] == 'Fail')]),
+            'female_distinction': len(df[(df['gender_F'] == 1) & (df['final_result'] == 'Distinction')]),
+            'female_withdrawn': len(df[(df['gender_F'] == 1) & (df['final_result'] == 'Withdrawn')]),
+            'male_pass': len(df[(df['gender_M'] == 1) & (df['final_result'] == 'Pass')]),
+            'male_fail': len(df[(df['gender_M'] == 1) & (df['final_result'] == 'Fail')]),
+            'male_distinction': len(df[(df['gender_M'] == 1) & (df['final_result'] == 'Distinction')]),
+            'male_withdrawn': len(df[(df['gender_M'] == 1) & (df['final_result'] == 'Withdrawn')])
+        }
+
         return {
             'feature_means': feature_means,
-            'outcome_counts': outcome_counts
+            'outcome_counts': outcome_counts,
+            'gender_counts': gender_counts
         }
+        
     except Exception as e:
         print(f"Error loading dataset: {e}")
         return {
@@ -87,6 +120,16 @@ def load_dataset():
                 'Pass': 300,
                 'Withdrawn': 150,
                 'Distinction': 50
+            },
+            'gender_counts': {
+                'female_pass': 150,
+                'female_fail': 50,
+                'female_distinction': 25,
+                'female_withdrawn': 75,
+                'male_pass': 150,
+                'male_fail': 50,
+                'male_distinction': 25,
+                'male_withdrawn': 75
             }
         }
 

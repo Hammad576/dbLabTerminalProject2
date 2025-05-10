@@ -140,6 +140,42 @@ document.addEventListener('DOMContentLoaded', async () => {
                 }
             });
 
+        // NEW Chart 7: Gender Comparison (Component Bar Chart)
+      // In your existing chart.js code, add the gender chart:
+const genderChart = new Chart(document.getElementById('genderChart'), {
+    type: 'bar',
+    data: {
+        labels: ['Pass', 'Fail', 'Distinction', 'Withdrawn'],
+        datasets: [{
+            label: 'Female',
+            data: [
+                data.gender_counts.female_pass,
+                data.gender_counts.female_fail,
+                data.gender_counts.female_distinction,
+                data.gender_counts.female_withdrawn
+            ],
+            backgroundColor: '#ff6384'
+        }, {
+            label: 'Male',
+            data: [
+                data.gender_counts.male_pass,
+                data.gender_counts.male_fail,
+                data.gender_counts.male_distinction,
+                data.gender_counts.male_withdrawn
+            ],
+            backgroundColor: '#36a2eb'
+        }]
+    },
+    options: {
+        responsive: true,
+        scales: {
+            y: { beginAtZero: true, title: { display: true, text: 'Number of Students' } }
+        },
+        plugins: { legend: { position: 'top' } }
+    }
+});
+            
+
         } catch (err) {
             console.error('Error loading charts:', err);
             document.getElementById('featureChart').parentElement.innerHTML = '<p>Error loading charts. Please check the dataset.</p>';
