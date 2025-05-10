@@ -32,9 +32,30 @@ document.addEventListener('DOMContentLoaded', async () => {
                     plugins: { legend: { display: true } }
                 }
             });
+
+            
             
             // Outcome Distribution Chart
             const outcomeChart = new Chart(document.getElementById('outcomeChart'), {
+                type: 'pie',
+                data: {
+                    labels: Object.keys(data.outcome_counts),
+                    datasets: [{
+                        label: 'Outcome Distribution',
+                        data: Object.values(data.outcome_counts),
+                        backgroundColor: ['#a30000', '#00a8cc', '#f4a261', '#2a9d8f'],
+                        borderColor: '#e8f0f2',
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: { legend: { position: 'top' } }
+                }
+            });
+             
+            // Outcome Distribution Chart
+            const outcomeChart2 = new Chart(document.getElementById('outcomeChart2'), {
                 type: 'pie',
                 data: {
                     labels: Object.keys(data.outcome_counts),
