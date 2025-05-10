@@ -4,7 +4,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             const response = await fetch('/data');
             const data = await response.json();
             
-            // Feature Distribution Chart
+            // Chart 1: Bar Chart (Existing)
             const featureChart = new Chart(document.getElementById('featureChart'), {
                 type: 'bar',
                 data: {
@@ -33,9 +33,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                 }
             });
 
-            
-            
-            // Outcome Distribution Chart
+            // Chart 2: Pie Chart (Existing)
             const outcomeChart = new Chart(document.getElementById('outcomeChart'), {
                 type: 'pie',
                 data: {
@@ -54,9 +52,9 @@ document.addEventListener('DOMContentLoaded', async () => {
                 }
             });
              
-            // Outcome Distribution Chart
+            // Chart 3: Doughnut Chart (Corrected)
             const outcomeChart2 = new Chart(document.getElementById('outcomeChart2'), {
-                type: 'pie',
+                type: 'doughnut',
                 data: {
                     labels: Object.keys(data.outcome_counts),
                     datasets: [{
@@ -72,6 +70,76 @@ document.addEventListener('DOMContentLoaded', async () => {
                     plugins: { legend: { position: 'top' } }
                 }
             });
+
+            // Chart 4: Line Chart (New)
+            const lineChart = new Chart(document.getElementById('lineChart'), {
+                type: 'line',
+                data: {
+                    labels: ['num_of_prev_attempts', 'studied_credits', 'forumng', 'oucontent', 'quiz', 'resource'],
+                    datasets: [{
+                        label: 'Feature Trends',
+                        data: [
+                            data.feature_means.num_of_prev_attempts,
+                            data.feature_means.studied_credits,
+                            data.feature_means.forumng,
+                            data.feature_means.oucontent,
+                            data.feature_means.quiz,
+                            data.feature_means.resource
+                        ],
+                        borderColor: '#2a9d8f',
+                        tension: 0.4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    scales: {
+                        y: { beginAtZero: true }
+                    }
+                }
+            });
+
+            // Chart 5: Polar Area Chart (New)
+            const polarChart = new Chart(document.getElementById('polarChart'), {
+                type: 'polarArea',
+                data: {
+                    labels: Object.keys(data.outcome_counts),
+                    datasets: [{
+                        label: 'Outcome Distribution',
+                        data: Object.values(data.outcome_counts),
+                        backgroundColor: ['#a30000', '#00a8cc', '#f4a261', '#2a9d8f']
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: { legend: { position: 'top' } }
+                }
+            });
+
+            // Chart 6: Radar Chart (New)
+            const radarChart = new Chart(document.getElementById('radarChart'), {
+                type: 'radar',
+                data: {
+                    labels: ['num_of_prev_attempts', 'studied_credits', 'forumng', 'oucontent', 'quiz', 'resource'],
+                    datasets: [{
+                        label: 'Feature Analysis',
+                        data: [
+                            data.feature_means.num_of_prev_attempts,
+                            data.feature_means.studied_credits,
+                            data.feature_means.forumng,
+                            data.feature_means.oucontent,
+                            data.feature_means.quiz,
+                            data.feature_means.resource
+                        ],
+                        backgroundColor: 'rgba(0, 168, 204, 0.2)',
+                        borderColor: '#00a8cc'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    scales: { r: { beginAtZero: true } }
+                }
+            });
+
         } catch (err) {
             console.error('Error loading charts:', err);
             document.getElementById('featureChart').parentElement.innerHTML = '<p>Error loading charts. Please check the dataset.</p>';

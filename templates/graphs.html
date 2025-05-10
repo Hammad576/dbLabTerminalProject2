@@ -8,28 +8,51 @@
     <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
         <!-- Feature Means Bar Chart -->
         <div class="bg-white shadow-md rounded-lg p-6">
-            <h4 class="text-xl font-semibold text-gray-700 mb-4">Feature Means</h4>
+            <h4 class="text-xl font-semibold text-gray-700 mb-4">Feature Averages</h4>
             <div class="relative h-80">
                 <canvas id="featureChart" class="w-full h-full"></canvas>
             </div>
         </div>
-        
+
         <!-- Outcome Distribution Pie Chart -->
         <div class="bg-white shadow-md rounded-lg p-6">
-            <h4 class="text-xl font-semibold text-gray-700 mb-4">Outcome Distribution Number</h4>
+            <h4 class="text-xl font-semibold text-gray-700 mb-4">Outcome Distribution</h4>
             <div class="relative h-80">
                 <canvas id="outcomeChart" class="w-full h-full"></canvas>
             </div>
         </div>
-         
-        <!-- Outcome Distribution Pie Chart -->
+
+        <!-- Outcome Distribution Doughnut Chart -->
         <div class="bg-white shadow-md rounded-lg p-6">
-            <h4 class="text-xl font-semibold text-gray-700 mb-4">Outcome Distribution Number</h4>
+            <h4 class="text-xl font-semibold text-gray-700 mb-4">Outcome Breakdown</h4>
             <div class="relative h-80">
                 <canvas id="outcomeChart2" class="w-full h-full"></canvas>
             </div>
         </div>
-        
+
+        <!-- Feature Trends Line Chart -->
+        <div class="bg-white shadow-md rounded-lg p-6">
+            <h4 class="text-xl font-semibold text-gray-700 mb-4">Feature Trends</h4>
+            <div class="relative h-80">
+                <canvas id="lineChart" class="w-full h-full"></canvas>
+            </div>
+        </div>
+
+        <!-- Polar Area Chart -->
+        <div class="bg-white shadow-md rounded-lg p-6">
+            <h4 class="text-xl font-semibold text-gray-700 mb-4">Outcome Polar View</h4>
+            <div class="relative h-80">
+                <canvas id="polarChart" class="w-full h-full"></canvas>
+            </div>
+        </div>
+
+        <!-- Radar Chart -->
+        <div class="bg-white shadow-md rounded-lg p-6">
+            <h4 class="text-xl font-semibold text-gray-700 mb-4">Feature Radar Analysis</h4>
+            <div class="relative h-80">
+                <canvas id="radarChart" class="w-full h-full"></canvas>
+            </div>
+        </div>
     </div>
 </section>
 {% endblock %}
