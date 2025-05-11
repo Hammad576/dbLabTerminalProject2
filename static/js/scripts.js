@@ -3,12 +3,12 @@ document.addEventListener('DOMContentLoaded', () => {
     if (form) {
         form.addEventListener('submit', async (e) => {
             e.preventDefault();
-            
+
             const resultDiv = document.getElementById('result');
             const errorDiv = document.getElementById('error');
             resultDiv.textContent = '';
             errorDiv.textContent = '';
-            
+
             // Client-side validation
             const inputs = {};
             let isValid = true;
@@ -26,7 +26,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 'age_band_0_35': [0, 1],
                 'disability_y': [0, 1]
             };
-            
+
             for (const input of form.elements) {
                 if (input.name && input.required) {
                     const value = input.value.trim();
@@ -50,9 +50,9 @@ document.addEventListener('DOMContentLoaded', () => {
                     inputs[input.name] = numValue;
                 }
             }
-            
+
             if (!isValid) return;
-            
+
             // Submit form via AJAX
             try {
                 const response = await fetch('/predict', {
@@ -61,9 +61,16 @@ document.addEventListener('DOMContentLoaded', () => {
                     body: new URLSearchParams(inputs)
                 });
                 const data = await response.json();
-                
+
+                // After successful prediction
                 if (response.ok) {
-                    resultDiv.textContent = `Predicted Outcome: ${data.prediction}`;
+                    // Pass data through URL parameters
+                    const params = new URLSearchParams({
+                        prediction: data.prediction,
+                        confidence: data.confidence || 85.3 // Use actual confidence from your model
+                    });
+
+                    window.open(`/result?${params}`, '_blank');
                 } else {
                     errorDiv.textContent = data.error;
                 }

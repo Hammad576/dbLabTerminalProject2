@@ -153,6 +153,39 @@ def about():
 def serve_data():
     return jsonify(load_dataset())
 
+@app.route('/result')
+def result():
+    prediction = request.args.get('prediction', 'Unknown')
+    # Add actual confidence calculation from your model
+    confidence = round(np.random.uniform(75, 95), 1)  # Replace with real confidence
+    
+    advice_mapping = {
+        'Pass': {
+            'title': 'Great Job! Keep it Up',
+            'tips': [
+                'Maintain current study routine',
+                'Continue forum participation',
+                'Complete quizzes on time',
+                'Regular material reviews'
+            ]
+        },
+        'Fail': {
+            'title': 'Improvement Suggestions',
+            'tips': [
+                'Increase study time',
+                'Participate in forums',
+                'Review failed quizzes',
+                'Create study schedule'
+            ]
+        },
+        # Add other mappings
+    }
+    
+    return render_template('result.html',
+                         prediction_result=prediction,
+                         confidence=confidence,
+                         advice=advice_mapping.get(prediction, {}))
+                         
 @app.route('/predict', methods=['POST'])
 def predict():
     try:
